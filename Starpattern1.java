@@ -1,0 +1,28 @@
+/*
+
+*
+* *
+* * *
+* * * *
+* * * * *
+* * * * * *
+
+ */
+
+
+import java.util.*;
+public class Starpattern1 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter number : ");
+		int n = sc.nextInt();
+		for(int i=1;i<=n;i++)
+		{
+			String a = "* ".repeat(i).stripTrailing();
+			System.out.println(a);
+		}
+		sc.close();
+	}
+
+}
