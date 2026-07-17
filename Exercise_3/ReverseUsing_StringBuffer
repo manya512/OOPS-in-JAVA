@@ -1,0 +1,21 @@
+/*A text editor counts the number of words typed by a user. First, manually iterate character by character to
+count spaces and determine word boundaries. Then, solve it using the split(" ") method and the length property
+of the resulting array.*/
+
+package Exercise_3;
+
+import java.util.Scanner;
+import java.lang.*;
+
+public class reverseUsing_StringBuffer {
+	
+	public static void main(String[] args) {
+			
+		Scanner sc = new Scanner(System.in);	
+		System.out.println("Enter message: ");
+		StringBuffer s = new StringBuffer(sc.nextLine());
+		System.out.println("Reversed Message: "+s.reverse());
+		sc.close();
+	}
+
+}
