@@ -1,0 +1,21 @@
+/*In a chat application, a user types a message that needs to be displayed in reverse. Write a Java program to
+reverse the given string. First, solve the problem by accessing each character using the charAt() method and
+a loop. Then, solve the same problem using the StringBuffer class and its reverse() method for a more efficient
+solution.*/
+
+package Exercise_3;
+
+import java.util.*;
+
+public class reverseUsing_charAt {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter message: ");
+		String s = sc.nextLine();
+		System.out.println("Reversed Message: ");
+		for(int i=s.length()-1;i>=0;i--)
+			System.out.print(s.charAt(i));
+		sc.close();
+	}
+}
