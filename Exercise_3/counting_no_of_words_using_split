@@ -1,0 +1,23 @@
+/*A text editor counts the number of words typed by a user. First, manually iterate character by character to
+count spaces and determine word boundaries. Then, solve it using the split(" ") method and the length property
+of the resulting array. */
+
+package Exercise_3;
+
+import java.util.Scanner;
+
+public class counting_no_of_words_using_split {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter passage: ");
+		String s = sc.nextLine().trim();
+		if(s.isEmpty()) System.out.println("Total number of words: 0");
+		else {
+			String[] words=s.split("[\\s.,!?]+");
+			System.out.println("Total number of word: "+words.length);
+		}
+		sc.close();
+	}
+
+}
