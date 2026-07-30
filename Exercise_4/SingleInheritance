@@ -1,0 +1,34 @@
+package exercise4;
+
+class Message {
+    String msgContent;
+
+    Message(String content) {
+        msgContent = content;
+    }
+
+    void displayMessage() {
+        System.out.println("Message: " + msgContent);
+    }
+}
+
+class EmailMessage extends Message {
+    String subjectLine;
+
+    EmailMessage(String subject, String content) {
+        super(content);
+        subjectLine = subject;
+    }
+
+    void displayEmail() {
+        System.out.println("Subject: " + subjectLine);
+        displayMessage();
+    }
+}
+
+public class SingleInheritance {
+    public static void main(String[] args) {
+        EmailMessage email = new EmailMessage("Emergency!!", "Take a break!");
+        email.displayEmail();
+    }
+}
