@@ -1,0 +1,30 @@
+package collections;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class StudentMap {
+    public static void main(String[] args) {
+        HashMap<Integer, String> students = new HashMap<Integer, String>();
+
+        students.put(101, "Ravi");
+        students.put(102, "Harshini");
+        students.put(103, "Arun");
+        students.put(104, "Priya");
+        students.put(105, "Kavin");
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter student ID: ");
+        int id = sc.nextInt();
+
+        String name = students.get(id);
+
+        if (name != null) {
+            System.out.println("Student Name: " + name);
+        } else {
+            System.out.println("Student ID not found.");
+        }
+
+        sc.close();
+    }
+}
