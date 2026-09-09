@@ -1,0 +1,25 @@
+package exercise8;
+
+import java.io.*;
+
+public class CharacterCounter {
+	public static void main(String[] args) throws IOException {
+		String fileName = "sample.txt";
+
+		// Create a sample file on disk to demonstrate the program
+		FileWriter fw = new FileWriter(fileName);
+		fw.write("This is a sample text file used to test FileInputStream.");
+		fw.close();
+
+		FileInputStream fis = new FileInputStream(fileName);
+		long count = 0;
+
+		while (fis.read() != -1) {
+			count++;
+		}
+		fis.close();
+
+		System.out.println("Total number of characters in the file: " + count);
+	}
+}
+
