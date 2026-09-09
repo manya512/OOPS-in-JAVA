@@ -1,0 +1,57 @@
+package exercise8;
+
+import java.io.*;
+
+public class SensorMonitor {
+	public static void main(String[] args) throws IOException {
+		// Simulate sensor readings being written to a binary stream in memory
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(baos);
+
+		int[] sensorIds = {1, 2, 3, 4};
+		float[] temperatures = {38.5f, 42.3f, 39.0f, 41.0f};
+		float[] pressures = {1.02f, 1.05f, 1.10f, 1.00f};
+		float[] humidities = {58.0f, 60.5f, 61.0f, 65.2f};
+
+		for (int i = 0; i < sensorIds.length; i++) {
+			dos.writeInt(sensorIds[i]);
+			dos.writeFloat(temperatures[i]);
+			dos.writeFloat(pressures[i]);
+			dos.writeFloat(humidities[i]);
+		}
+		dos.flush();
+
+		// Read back the binary stream entirely in memory
+		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+		DataInputStream dis = new DataInputStream(bais);
+
+		final double TEMP_LIMIT = 40.0;
+		final double PRESSURE_LIMIT = 1.08;
+		final double HUMIDITY_LIMIT = 62.0;
+
+		while (dis.available() > 0) {
+			int id = dis.readInt();
+			float temp = dis.readFloat();
+			float pressure = dis.readFloat();
+			float humidity = dis.readFloat();
+
+			System.out.printf("Sensor %d -> Temp: %.1f, Pressure: %.2f, Humidity: %.1f%n",
+					id, temp, pressure, humidity);
+
+			if (temp > TEMP_LIMIT) {
+				System.out.println("  WARNING: Temperature exceeds safe limit!");
+			}
+			if (pressure > PRESSURE_LIMIT) {
+				System.out.println("  WARNING: Pressure exceeds safe limit!");
+			}
+			if (humidity > HUMIDITY_LIMIT) {
+				System.out.println("  WARNING: Humidity exceeds safe limit!");
+			}
+		}
+
+		dis.close();
+		dos.close();
+	}
+}
+
+
