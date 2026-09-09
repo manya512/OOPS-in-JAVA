@@ -1,0 +1,44 @@
+package exercise8;
+
+import java.io.*;
+
+public class StudentGrades {
+	public static void main(String[] args) throws IOException {
+		String data = "101,85,90,78\n102,88,76,92\n103,79,85,80\n";
+		char[] charArray = data.toCharArray();
+
+		CharArrayReader charReader = new CharArrayReader(charArray);
+		BufferedReader reader = new BufferedReader(charReader);
+
+		CharArrayWriter charWriter = new CharArrayWriter();
+		BufferedWriter writer = new BufferedWriter(charWriter);
+
+		String line;
+		while ((line = reader.readLine()) != null) {
+			if (line.trim().isEmpty()) continue;
+			String[] fields = line.split(",");
+			int studentId = Integer.parseInt(fields[0].trim());
+
+			int sum = 0;
+			int subjectCount = fields.length - 1;
+			for (int i = 1; i < fields.length; i++) {
+				sum += Integer.parseInt(fields[i].trim());
+			}
+			double average = (double) sum / subjectCount;
+
+			String result = String.format("Student %d: Average Score = %.2f", studentId, average);
+			System.out.println(result);
+
+			writer.write(result);
+			writer.newLine();
+		}
+
+		writer.flush();
+		reader.close();
+		writer.close();
+
+		System.out.println("\n--- Averages stored in in-memory character array ---");
+		System.out.print(charWriter.toString());
+	}
+}
+
