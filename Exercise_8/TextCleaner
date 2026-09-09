@@ -1,0 +1,37 @@
+package exercise8;
+
+import java.io.*;
+
+public class TextCleaner {
+	public static void main(String[] args) throws IOException {
+		String pastedText = "This   is   a #pasted!! text@@ with   extra    spaces &&& symbols!!!";
+		char[] charArray = pastedText.toCharArray();
+
+		CharArrayReader reader = new CharArrayReader(charArray);
+		StringBuilder cleaned = new StringBuilder();
+
+		int data;
+		boolean lastWasSpace = false;
+		while ((data = reader.read()) != -1) {
+			char c = (char) data;
+			if (Character.isLetterOrDigit(c) || c == ' ') {
+				if (c == ' ') {
+					if (!lastWasSpace) {
+						cleaned.append(c);
+					}
+					lastWasSpace = true;
+				} else {
+					cleaned.append(c);
+					lastWasSpace = false;
+				}
+			}
+			// unwanted formatting characters/symbols are simply skipped
+		}
+		reader.close();
+
+		System.out.println("Original Text : " + pastedText);
+		System.out.println("Cleaned Text  : " + cleaned.toString().trim());
+	}
+}
+
+
