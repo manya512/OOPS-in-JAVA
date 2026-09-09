@@ -1,0 +1,44 @@
+package exercise8;
+import java.io.*;
+
+public class ChatCensor {
+	public static void main(String[] args) throws IOException {
+		String[] messages = {
+			"This movie is stupid and the actor is an idiot",
+			"Have a great day everyone",
+			"You are so dumb, stop talking nonsense"
+		};
+		String[] restrictedWords = {"stupid", "idiot", "dumb", "nonsense"};
+
+		for (String msg : messages) {
+			byte[] byteData = msg.getBytes();
+			ByteArrayInputStream bais = new ByteArrayInputStream(byteData);
+
+			StringBuilder sb = new StringBuilder();
+			int ch;
+			while ((ch = bais.read()) != -1) {
+				sb.append((char) ch);
+			}
+			bais.close();
+
+			String original = sb.toString();
+			String[] words = original.split(" ");
+			StringBuilder sanitized = new StringBuilder();
+
+			for (String word : words) {
+				String cleanWord = word.replaceAll("[^a-zA-Z]", "");
+				boolean restricted = false;
+				for (String bad : restrictedWords) {
+					if (cleanWord.equalsIgnoreCase(bad)) {
+						restricted = true;
+						break;
+					}
+				}
+				sanitized.append(restricted ? "***" : word).append(" ");
+			}
+			System.out.println("Original : " + original);
+			System.out.println("Sanitized: " + sanitized.toString().trim());
+			System.out.println();
+		}
+	}
+}
