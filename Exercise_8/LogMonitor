@@ -1,0 +1,41 @@
+package exercise8;
+
+import java.io.*;
+
+public class LogMonitor {
+	public static void main(String[] args) throws IOException {
+		String inputFile = "server.log";
+		String outputFile = "filtered_log.txt";
+
+		// Create a sample log file on disk to demonstrate the program
+		FileWriter fw = new FileWriter(inputFile);
+		fw.write("2025-08-13 09:10:01 INFO Server started successfully\n");
+		fw.write("2025-08-13 09:12:45 WARNING Disk space running low\n");
+		fw.write("2025-08-13 09:15:30 INFO User admin logged in\n");
+		fw.write("2025-08-13 09:20:10 ERROR Database connection failed\n");
+		fw.close();
+
+		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+
+		String line;
+		while ((line = reader.readLine()) != null) {
+			if (line.contains("ERROR") || line.contains("WARNING")) {
+				String keyword = line.contains("ERROR") ? "ERROR" : "WARNING";
+				String timestamp = line.substring(0, 19);
+				String message = line.substring(line.indexOf(keyword) + keyword.length()).trim();
+
+				String output = keyword + ": " + timestamp + " " + message;
+				System.out.println(output);
+
+				writer.write(output);
+				writer.newLine();
+			}
+		}
+
+		reader.close();
+		writer.flush();
+		writer.close();
+	}
+}
+
